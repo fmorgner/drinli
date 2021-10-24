@@ -1,0 +1,7 @@
+/.pyenv
+/build
+/.gdb_history
+
+/*.bin
+/*.elf
+/*.hex

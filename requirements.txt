@@ -1,0 +1,2 @@
+joulescope_ui>=0.9.0
+intelhex>=2.3.0

@@ -1,0 +1,78 @@
+FLASH_SIZE = 256K;
+RAM_SIZE = 32K;
+
+STACK_SIZE = @DRINLI_STACK_SIZE@;
+
+MEMORY
+{
+    FLASH (RX)  : ORIGIN = 0x00000000, LENGTH = FLASH_SIZE
+    RAM   (RWX) : ORIGIN = 0x20000000, LENGTH = RAM_SIZE
+}
+
+SECTIONS
+{
+    .vector_table : ALIGN(4) {
+        KEEP(*(.initial_stack))
+        KEEP(*(.interrupt_vectors))
+    } > FLASH
+
+    .text : ALIGN(4) {
+        *(.text .text.* .gnu.linkonce.t.*)
+        *(.rodata .rodata.* .gnu.linkonce.r.*)
+
+        . = ALIGN(4);
+        KEEP(*(.init))
+        . = ALIGN(4);
+        KEEP(*(.preinit_array))
+        . = ALIGN(4);
+        KEEP (*(SORT(.init_array.*)))
+        KEEP (*(.init_array))
+
+        . = ALIGN(4);
+        KEEP(*(.fini))
+        . = ALIGN(4);
+        KEEP (*(.fini_array));
+        KEEP (*(SORT(.fini_array.*)))
+
+        . = ALIGN(4);
+        KEEP (*crtbegin.o(.ctors))
+        KEEP (*(EXCLUDE_FILE (*crtend.o) .ctors))
+        KEEP (*(SORT(.ctors.*)))
+        KEEP (*crtend.o(.ctors))
+
+        . = ALIGN(4);
+        KEEP (*crtbegin.o(.dtors))
+        KEEP (*(EXCLUDE_FILE (*crtend.o) .dtors))
+        KEEP (*(SORT(.dtors.*)))
+        KEEP (*crtend.o(.dtors))
+    } > FLASH
+
+    .data : AT(ADDR(.text) + SIZEOF(.text)) {
+        _data_start = .;
+        *(.data .data.*)
+        . = ALIGN(4);
+        _data_end = .;
+    } > RAM
+
+    _data_load_point = LOADADDR(.data);
+
+    .bss (NOLOAD) : {
+        . = ALIGN(4);
+        _bss_start = .;
+        *(.bss .bss.*)
+        . = ALIGN(4);
+        _bss_end = .;
+    } > RAM
+
+    .stack (NOLOAD) : ALIGN(8) {
+        . = . + STACK_SIZE;
+        _initial_stack_end = .;
+    } > RAM
+
+    . = ALIGN(4);
+    _heap_start = .;
+    PROVIDE(end = .);
+    . = ADDR(.data) + RAM_SIZE;
+    _head_end = .;
+    _heap_size = _head_end - _heap_start;
+}

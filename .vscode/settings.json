@@ -1,0 +1,21 @@
+{
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "modificationsIfAvailable",
+    },
+
+    "cmake.sourceDirectory": "${workspaceFolder}/source",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+
+    "C_Cpp.autoAddFileAssociations": false,
+    "C_Cpp.autocomplete": "Default",
+    "C_Cpp.intelliSenseEngine": "Default",
+    "C_Cpp.errorSquiggles": "EnabledIfIncludesResolve",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.default.intelliSenseMode": "gcc-arm",
+    "C_Cpp.default.compilerPath": "arm-none-eabi-g++",
+    "C_Cpp.default.cppStandard": "c++20",
+    "python.pythonPath": "/home/sophia/Projects/embedded/drinli/.pyenv/bin/python",
+}
