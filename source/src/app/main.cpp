@@ -2,8 +2,8 @@
 #include <ti/rom/gpio.hpp>
 #include <ti/rom/system_control.hpp>
 
-namespace gpio = ti::rom::gpio;
-namespace sysctl = ti::rom::system_control;
+using gpio = ti::rom::gpio;
+using sysctl = ti::rom::system_control;
 
 auto constexpr red_led = gpio::pin::_1;
 auto constexpr blue_led = gpio::pin::_2;
@@ -19,8 +19,8 @@ auto firmware_main() -> void
 {
   sysctl::enable(sysctl::peripheral::gpio_f);
 
-  set_mode(gpio::port::f, all_leds, gpio::mode::out);
-  set_pad_configuration(gpio::port::f, all_leds, gpio::strength::_2mA, gpio::type::push_pull_with_weak_pull_down);
+  gpio::set_mode(gpio::port::f, all_leds, gpio::mode::out);
+  gpio::set_pad_configuration(gpio::port::f, all_leds, gpio::strength::_2mA, gpio::type::push_pull_with_weak_pull_down);
 
-  write(gpio::port::f, red_led, gpio::level::high);
+  gpio::write(gpio::port::f, all_leds, gpio::level::high);
 }

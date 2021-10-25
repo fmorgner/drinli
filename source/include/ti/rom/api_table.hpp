@@ -3,19 +3,34 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 namespace ti::rom
 {
 
-  template<typename FunctionType, std::size_t Table, std::size_t Function>
-  auto function() -> FunctionType *
+  template<std::size_t Table>
+  struct api_table
   {
-    return reinterpret_cast<FunctionType *>(                       //
-        reinterpret_cast<std::uint32_t *>(                         //
-            reinterpret_cast<std::uint32_t *>(0x0100'0010)[Table]  //
-            )[Function]                                            //
-    );
-  }
+    using base_address = std::integral_constant<std::uint32_t, 0x0100'0010>;
+
+    template<std::size_t Function, typename Signature>
+    struct function;
+
+    template<std::size_t Function, typename ReturnType, typename... ArgumentTypes>
+    struct function<Function, ReturnType(ArgumentTypes...)>
+    {
+      using Signature = ReturnType(ArgumentTypes...);
+
+      template<typename... Arguments>
+      auto static invoke(Arguments &&... arguments) -> auto
+      {
+        return reinterpret_cast<Signature *>(                                  //
+            reinterpret_cast<std::uint32_t *>(                                 //
+                reinterpret_cast<std::uint32_t *>(base_address::value)[Table]  //
+                )[Function])(static_cast<ArgumentTypes>(arguments)...);
+      }
+    };
+  };
 
 }  // namespace ti::rom
 

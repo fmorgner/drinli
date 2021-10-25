@@ -5,24 +5,34 @@
 
 #include <cstdint>
 
-namespace ti::rom::system_control
+namespace ti::rom
 {
-
-  enum struct peripheral : std::uint32_t
+  struct system_control
   {
-    gpio_f = 0x2000'0020,
-  };
+    using table = api_table<13>;
 
-  auto inline sleep = [] {
-    function<void(), 13, 0>()();
-  };
+    enum struct peripheral : std::uint32_t
+    {
+      gpio_f = 0x2000'0020,
+    };
 
-  auto inline reset = [] {
-    function<void(), 13, 19>()();
-  };
+    auto inline static sleep() -> void
+    {
+      using function = table::function<0, void()>;
+      return function::invoke();
+    }
 
-  auto inline enable = [](peripheral peripheral) {
-    function<void(std::uint32_t * peripheral_address), 13, 6>()(reinterpret_cast<std::uint32_t *>(peripheral));
+    auto inline static reset() -> void
+    {
+      using function = table::function<19, void()>;
+      return function::invoke();
+    }
+
+    auto inline static enable(peripheral peripheral) -> void
+    {
+      using function = table::function<6, void(std::uint32_t)>;
+      return function::invoke(peripheral);
+    };
   };
 
 }  // namespace ti::rom::system_control
