@@ -32,6 +32,16 @@ namespace ti::rom
     };
   };
 
+  /**
+   * @brief Retrieve the version of the ROM in use
+   *
+   * @return std::uint32_t The version of the on-chip ROM
+   */
+  auto inline static version() -> std::uint32_t
+  {
+    return *reinterpret_cast<std::uint32_t *>(api_table<0>::base_address::value);
+  }
+
 }  // namespace ti::rom
 
 #endif
