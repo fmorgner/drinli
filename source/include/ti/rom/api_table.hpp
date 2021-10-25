@@ -21,13 +21,20 @@ namespace ti::rom
     {
       using Signature = ReturnType(ArgumentTypes...);
 
+      auto inline static table_pointer() -> Signature **
+      {
+        return reinterpret_cast<Signature ***>(base_address::value)[Table];
+      }
+
+      auto inline static function_pointer() -> Signature *
+      {
+        return reinterpret_cast<Signature *>(table_pointer()[Function]);
+      }
+
       template<typename... Arguments>
       auto static invoke(Arguments &&... arguments) -> auto
       {
-        return reinterpret_cast<Signature *>(                                  //
-            reinterpret_cast<std::uint32_t *>(                                 //
-                reinterpret_cast<std::uint32_t *>(base_address::value)[Table]  //
-                )[Function])(static_cast<ArgumentTypes>(arguments)...);
+        return function_pointer()(static_cast<ArgumentTypes>(arguments)...);
       }
     };
   };
