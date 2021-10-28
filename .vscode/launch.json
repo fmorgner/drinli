@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "name": "OpenOCD Launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/app.dsym",
+            "runToEntryPoint": "base::reset",
+            "configFiles": [
+                "${workspaceFolder}/openocd.cfg"
+            ],
+            "cpu": "cortex-m4",
+        },
+        {
+            "type": "cortex-debug",
+            "request": "attach",
+            "name": "OpenOCD Attach",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/app.dsym",
+            "runToEntryPoint": "base::reset",
+            "configFiles": [
+                "${workspaceFolder}/openocd.cfg"
+            ],
+            "cpu": "cortex-m4",
+        }
+
+    ]
+}
