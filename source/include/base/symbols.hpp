@@ -7,6 +7,11 @@
 namespace base
 {
 
+  namespace detail
+  {
+    using initializer_function_type = void (*)();
+  }
+
   extern "C"
   {
     /**
@@ -43,6 +48,26 @@ namespace base
      * Sentinel representing the start of the initial system heap in RAM.
      */
     extern std::uint32_t _heap_start;
+
+    /**
+     * Sentinel representing the start of the pre-init array
+     */
+    extern detail::initializer_function_type _preinit_array_start;
+
+    /**
+     * Sentinel representing the end of the pre-init array
+     */
+    extern detail::initializer_function_type _preinit_array_end;
+
+    /**
+     * Sentinel representing the start of the init array
+     */
+    extern detail::initializer_function_type _init_array_start;
+
+    /**
+     * Sentinel representing the end of the init array
+     */
+    extern detail::initializer_function_type _init_array_end;
   }
 
 }  // namespace base

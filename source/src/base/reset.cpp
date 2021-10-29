@@ -26,12 +26,22 @@ namespace base
       std::ranges::fill(bss_in_ram, 0);
     }
 
+    auto invoke_initializers() -> void
+    {
+      auto preinit_array = std::span{&_preinit_array_start, &_preinit_array_end};
+      std::ranges::for_each(preinit_array, [](auto initializer) { initializer(); });
+
+      auto init_array = std::span{&_init_array_start, &_init_array_end};
+      std::ranges::for_each(init_array, [](auto initializer) { initializer(); });
+    }
+
   }  // namespace
 
   auto reset() -> void
   {
     load_data_section();
     zero_bss_section();
+    invoke_initializers();
     firmware_main();
     ti::rom::system_control::sleep();
   }
