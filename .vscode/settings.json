@@ -5,6 +5,10 @@
         "editor.formatOnSaveMode": "modificationsIfAvailable",
     },
 
+    "files.associations": {
+        "*.ld.in": "linkerscript"
+    },
+
     "cmake.sourceDirectory": "${workspaceFolder}/source",
     "cmake.buildDirectory": "${workspaceFolder}/build",
 

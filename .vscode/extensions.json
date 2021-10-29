@@ -4,6 +4,7 @@
         "ms-vscode.cpptools",
         "twxs.cmake",
         "llvm-vs-code-extensions.vscode-clangd",
-        "marus25.cortex-debug"
+        "marus25.cortex-debug",
+        "ZixuanWang.linkerscript"
     ]
 }
