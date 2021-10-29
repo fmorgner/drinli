@@ -1,11 +1,11 @@
-#ifndef DRINLI_TI_ROM_API_TABLE_HPP
-#define DRINLI_TI_ROM_API_TABLE_HPP
+#ifndef DRINLI_ROM_DETAIL_API_TABLE_HPP
+#define DRINLI_ROM_DETAIL_API_TABLE_HPP
 
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
 
-namespace ti::rom
+namespace drinli::rom::detail
 {
 
   template<std::size_t Table>
@@ -49,6 +49,6 @@ namespace ti::rom
     return *reinterpret_cast<std::uint32_t *>(api_table<0>::base_address::value);
   }
 
-}  // namespace ti::rom
+}  // namespace drinli::rom::detail
 
 #endif

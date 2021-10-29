@@ -1,4 +1,4 @@
-set(_LINKER_SCRIPT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/scripts" CACHE INTERNAL "The directory containing the linker script source")
+set(_LINKER_SCRIPT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/source/scripts" CACHE INTERNAL "The directory containing the linker script source")
 set(_LINKER_SCRIPT_OUTPUT_DIR "${PROJECT_BINARY_DIR}/scripts" CACHE INTERNAL "The directory containing the linker script output")
 
 file(GLOB _LINKER_SCRIPTS_SOURCES CONFIGURE_DEPENDS "${_LINKER_SCRIPT_SOURCE_DIR}/*.ld.in")

@@ -4,13 +4,10 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace base
+namespace drinli::bootstrap::detail
 {
 
-  namespace detail
-  {
-    using initializer_function_type = void (*)();
-  }
+  using initializer_function_type = void (*)();
 
   extern "C"
   {
@@ -70,6 +67,6 @@ namespace base
     extern detail::initializer_function_type _init_array_end;
   }
 
-}  // namespace base
+}  // namespace drinli::bootstrap::detail
 
 #endif

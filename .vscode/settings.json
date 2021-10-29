@@ -9,7 +9,6 @@
         "*.ld.in": "linkerscript"
     },
 
-    "cmake.sourceDirectory": "${workspaceFolder}/source",
     "cmake.buildDirectory": "${workspaceFolder}/build",
 
     "C_Cpp.autoAddFileAssociations": false,

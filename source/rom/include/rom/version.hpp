@@ -1,15 +1,15 @@
-#ifndef DRINLI_TI_ROM_SYSTEM_CONTROL_HPP
-#define DRINLI_TI_ROM_SYSTEM_CONTROL_HPP
+#ifndef DRINLI_ROM_VERSION_HPP
+#define DRINLI_ROM_VERSION_HPP
 
-#include "ti/rom/api_table.hpp"
+#include "rom/detail/api_table.hpp"
 
 #include <cstdint>
 
-namespace ti::rom
+namespace drinli::rom
 {
   struct system_control
   {
-    using table = api_table<13>;
+    using table = detail::api_table<13>;
 
     enum struct peripheral : std::uint32_t
     {
@@ -35,6 +35,6 @@ namespace ti::rom
     };
   };
 
-}  // namespace ti::rom::system_control
+}  // namespace drinli::rom
 
 #endif

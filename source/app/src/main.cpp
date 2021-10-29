@@ -1,9 +1,8 @@
-#include <base/entry.hpp>
-#include <ti/rom/gpio.hpp>
-#include <ti/rom/system_control.hpp>
+#include <rom/gpio.hpp>
+#include <rom/system_control.hpp>
 
-using gpio = ti::rom::gpio;
-using sysctl = ti::rom::system_control;
+using gpio = drinli::rom::gpio;
+using sysctl = drinli::rom::system_control;
 
 auto constexpr red_led = gpio::pin::_1;
 auto constexpr blue_led = gpio::pin::_2;

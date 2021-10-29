@@ -1,7 +1,7 @@
-#ifndef DRINLI_TI_ROM_GPIO_HPP
-#define DRINLI_TI_ROM_GPIO_HPP
+#ifndef DRINLI_ROM_GPIO_HPP
+#define DRINLI_ROM_GPIO_HPP
 
-#include "ti/rom/api_table.hpp"
+#include "rom/detail/api_table.hpp"
 
 #include <cstdint>
 #include <initializer_list>
@@ -9,12 +9,12 @@
 #include <numeric>
 #include <type_traits>
 
-namespace ti::rom
+namespace drinli::rom
 {
 
   struct gpio
   {
-    using table = api_table<4>;
+    using table = detail::api_table<4>;
 
     /**
      * @brief Configured mode of a pin
@@ -79,7 +79,7 @@ namespace ti::rom
 
       auto constexpr operator|(pin_set other) const noexcept -> pin_set
       {
-        return pin_set{m_pins | other.m_pins};
+        return pin_set(m_pins | other.m_pins);
       }
 
       auto constexpr operator|(pin pin) noexcept -> pin_set &
@@ -117,7 +117,7 @@ namespace ti::rom
 
     private:
       constexpr pin_set(std::underlying_type_t<pin> current, pin pin) noexcept
-          : m_pins{current | static_cast<std::underlying_type_t<decltype(pin)>>(pin)}
+          : m_pins(current | static_cast<std::underlying_type_t<decltype(pin)>>(pin))
       {
       }
 
@@ -215,6 +215,6 @@ namespace ti::rom
     return {lhs, rhs};
   }
 
-}  // namespace ti::rom
+}  // namespace drinli::rom
 
 #endif
