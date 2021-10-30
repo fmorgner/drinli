@@ -15,14 +15,14 @@ function(drinli_add_firmware NAME)
     )
 
     target_link_options("${NAME}" PUBLIC
-        "$<BUILD_INTERFACE:-T${_LINKER_SCRIPT_OUTPUT}>"
+        "$<BUILD_INTERFACE:-T${DRINLI_LINKER_SCRIPT_PATH}>"
     )
 
     set_target_properties("${NAME}" PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS OFF
         INTERPROCEDURAL_OPTIMIZATION ${DRINLI_PERFORM_IPO}
-        LINK_DEPENDS "${_LINKER_SCRIPT_OUTPUT}"
+        LINK_DEPENDS "${DRINLI_LINKER_SCRIPT_PATH}"
         SUFFIX ".elf"
     )
 

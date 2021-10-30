@@ -10,6 +10,9 @@
     },
 
     "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureOnOpen": false,
+    "cmake.configureOnEdit": false,
+    "cmake.clearOutputBeforeBuild": true,
 
     "C_Cpp.autoAddFileAssociations": false,
     "C_Cpp.autocomplete": "Default",
@@ -20,5 +23,4 @@
     "C_Cpp.default.intelliSenseMode": "gcc-arm",
     "C_Cpp.default.compilerPath": "arm-none-eabi-g++",
     "C_Cpp.default.cppStandard": "c++20",
-    "python.pythonPath": "/home/sophia/Projects/embedded/drinli/.pyenv/bin/python",
 }

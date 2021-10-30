@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION "${CMAKE_MINIMUM_REQUIRED_VERSION}")
+
 #[============================================================================[
                           The Drinli Bootstrap Library
 #]============================================================================]
@@ -14,7 +16,7 @@ add_library("bootstrap" STATIC ${BOOTSTRAP_SOURCES})
 
 target_include_directories("bootstrap" PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    "$<INSTALL_INTERFACE:include/drinli>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/drinli>"
 )
 
 target_compile_features("bootstrap" PUBLIC
@@ -38,10 +40,9 @@ set_target_properties("bootstrap" PROPERTIES
 #[=====[ Installation Configuration ]=====]
 
 install(TARGETS "bootstrap"
-    EXPORT "${PROJECT_NAME}Targets"
-    DESTINATION "lib/drinli"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
 )
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-    DESTINATION "include/drinli"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/drinli"
 )

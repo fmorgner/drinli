@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION "${CMAKE_MINIMUM_REQUIRED_VERSION}")
+
 #[============================================================================[
                         The Drinli On-Chip ROM Library
 #]============================================================================]
@@ -14,7 +16,7 @@ add_library("rom" INTERFACE ${ROM_SOURCES})
 
 target_include_directories("rom" INTERFACE
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    "$<INSTALL_INTERFACE:include/drinli>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/drinli>"
 )
 
 target_link_libraries("rom" INTERFACE
@@ -41,10 +43,9 @@ set_target_properties("rom" PROPERTIES
 #[=====[ Installation Configuration ]=====]
 
 install(TARGETS "rom"
-    EXPORT "${PROJECT_NAME}Targets"
-    DESTINATION "lib/drinli"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
 )
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-    DESTINATION "include/drinli"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/drinli"
 )

@@ -1,10 +1,8 @@
+cmake_minimum_required(VERSION "3.21.0")
+
 #[============================================================================[
                                     Drinli
 #]============================================================================]
-
-cmake_minimum_required(VERSION "3.21.0")
-
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Toolchains/arm-none-eabi-gcc.cmake")
 
 list(APPEND CMAKE_MODULE_PATH
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Configuration"
@@ -24,14 +22,20 @@ project("Drinli"
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 
+#[=====[ Conan Dependencies ]=====]
+
+include("${PROJECT_BINARY_DIR}/conanbuildinfo.cmake")
+conan_basic_setup(NO_OUTPUT_DIRS)
+
 #[=====[ Basic Project Configuration ]=====]
 
-include("LinkerScript")
 include("StackSize")
+include("LinkerScripts")
+include("ShowConfiguration")
 
 option(DRINLI_PERFORM_IPO "Perform interprocedural optimization" YES)
 
-write_linker_script()
+drinli_show_configuration()
 
 #[=====[ Project Components ]=====]
 
@@ -45,28 +49,6 @@ add_subdirectory("source/app")
 
 #[=====[ Installation Configuration ]=====]
 
-write_basic_package_version_file(
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    COMPATIBILITY "AnyNewerVersion"
-)
-
-configure_package_config_file(
-    "${PROJECT_SOURCE_DIR}/cmake/config.cmake.in"
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION "lib/cmake/${PROJECT_NAME}"
-)
-
-install(FILES
-  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  DESTINATION "lib/cmake/${PROJECT_NAME}"
-)
-
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/cmake/Modules"
-    DESTINATION "lib/cmake/${PROJECT_NAME}"
-)
-
-install(EXPORT "${PROJECT_NAME}Targets"
-    DESTINATION "lib/cmake/${PROJECT_NAME}"
-    NAMESPACE "drinli"
+install(DIRECTORY "${PROJECT_BINARY_DIR}/scripts"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
 )

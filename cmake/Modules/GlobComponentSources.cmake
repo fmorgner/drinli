@@ -5,4 +5,3 @@ function(drinli_glob_component_sources OUTPUT_VARIABLE)
     )
     set(${OUTPUT_VARIABLE} ${COMPONENT_SOURCES} PARENT_SCOPE)
 endfunction()
-
