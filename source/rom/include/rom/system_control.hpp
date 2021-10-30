@@ -33,6 +33,12 @@ namespace drinli::rom
       using function = table::function<6, void(std::uint32_t)>;
       return function::invoke(peripheral);
     };
+
+    auto inline static enable_ahb(peripheral peripheral) -> void
+    {
+      using function = table::function<29, void(std::uint32_t)>;
+      return function::invoke(peripheral);
+    };
   };
 
 }  // namespace drinli::rom
