@@ -17,6 +17,7 @@ auto constexpr all_leds = gpio::pin_set{
 auto firmware_main() -> void
 {
   sysctl::enable(sysctl::peripheral::gpio_f);
+  sysctl::enable_ahb(sysctl::peripheral::gpio_f);
 
   gpio::set_mode(gpio::port::f, all_leds, gpio::mode::out);
   gpio::set_pad_configuration(gpio::port::f, all_leds, gpio::strength::_2mA, gpio::type::push_pull_with_weak_pull_down);
