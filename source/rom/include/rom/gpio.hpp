@@ -1,6 +1,7 @@
 #ifndef DRINLI_ROM_GPIO_HPP
 #define DRINLI_ROM_GPIO_HPP
 
+#include "mcu/gpio.hpp"
 #include "rom/detail/api_table.hpp"
 
 #include <cstdint>
@@ -15,44 +16,9 @@ namespace drinli::rom
   struct gpio
   {
     using table = detail::api_table<4>;
-
-    /**
-     * @brief Configured mode of a pin
-     */
-    enum struct mode : std::uint32_t
-    {
-      in = 0x0000'0000,   ///< software controlled input
-      out = 0x0000'0001,  ///< software controlled output
-      hw = 0x0000'0002,   ///< hardware controlled
-    };
-
-    /**
-     * @brief GPIO port
-     */
-    enum struct port : std::uint32_t
-    {
-      a = 0x4005'8000,  ///< Port A
-      b = 0x4005'9000,  ///< Port B
-      c = 0x4005'A000,  ///< Port C
-      d = 0x4005'B000,  ///< Port D
-      e = 0x4005'C000,  ///< Port E
-      f = 0x4002'5000,  ///< Port F
-    };
-
-    /**
-     * @brief GPIO pin
-     */
-    enum struct pin : std::uint8_t
-    {
-      _0 = 0b0000'0001,  ///< Pin 0
-      _1 = 0b0000'0010,  ///< Pin 1
-      _2 = 0b0000'0100,  ///< Pin 2
-      _3 = 0b0000'1000,  ///< Pin 3
-      _4 = 0b0001'0000,  ///< Pin 4
-      _5 = 0b0010'0000,  ///< Pin 5
-      _6 = 0b0100'0000,  ///< Pin 6
-      _7 = 0b1000'0000,  ///< Pin 7
-    };
+    using pin = mcu::gpio::pin;
+    using port = mcu::gpio::ahb_port;
+    using mode = mcu::gpio::pin_mode;
 
     /**
      * @brief A set of pins

@@ -33,6 +33,7 @@ write_linker_script()
 
 #[=====[ Project Components ]=====]
 
+add_subdirectory("source/mcu")
 add_subdirectory("source/rom")
 add_subdirectory("source/bootstrap")
 
