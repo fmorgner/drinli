@@ -10,18 +10,18 @@ include("GlobComponentSources")
 
 drinli_glob_component_sources(ROM_SOURCES)
 
-add_library("drinli-mcu" INTERFACE ${ROM_SOURCES})
+add_library("mcu" INTERFACE ${ROM_SOURCES})
 
-target_include_directories("drinli-mcu" INTERFACE
+target_include_directories("mcu" INTERFACE
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include/drinli>"
 )
 
-target_compile_features("drinli-mcu" INTERFACE
+target_compile_features("mcu" INTERFACE
     "cxx_std_20"
 )
 
-target_compile_options("drinli-mcu" INTERFACE
+target_compile_options("mcu" INTERFACE
     "$<$<CXX_COMPILER_ID:GNU>:-Wall>"
     "$<$<CXX_COMPILER_ID:GNU>:-Wextra>"
     "$<$<CXX_COMPILER_ID:GNU>:-Werror>"
@@ -29,9 +29,18 @@ target_compile_options("drinli-mcu" INTERFACE
     "$<$<CXX_COMPILER_ID:GNU>:-Wstack-usage=${DRINLI_STACK_SIZE}>"
 )
 
-set_target_properties("drinli-mcu" PROPERTIES
+set_target_properties("mcu" PROPERTIES
     CXX_EXTENSIONS OFF
     CXX_STANDARD_REQUIRED YES
 )
 
-add_library("drinli::mcu" ALIAS "drinli-mcu")
+#[=====[ Installation Configuration ]=====]
+
+install(TARGETS "mcu"
+    EXPORT "${PROJECT_NAME}Targets"
+    DESTINATION "lib/drinli"
+)
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+    DESTINATION "include/drinli"
+)
