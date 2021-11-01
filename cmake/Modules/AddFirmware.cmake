@@ -14,15 +14,20 @@ function(drinli_add_firmware NAME)
         "drinli_rom"
     )
 
+    target_link_directories("${NAME}" PUBLIC
+        "${PROJECT_BINARY_DIR}/scripts"
+        "${PROJECT_SOURCE_DIR}/source/scripts/mcus"
+    )
+
     target_link_options("${NAME}" PUBLIC
-        "$<BUILD_INTERFACE:-T${DRINLI_LINKER_SCRIPT_PATH}>"
+        "$<BUILD_INTERFACE:-Tdrinli.ld>"
     )
 
     set_target_properties("${NAME}" PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS OFF
         INTERPROCEDURAL_OPTIMIZATION ${DRINLI_PERFORM_IPO}
-        LINK_DEPENDS "${DRINLI_LINKER_SCRIPT_PATH}"
+        LINK_DEPENDS "${PROJECT_BINARY_DIR}/scripts/drinli.ld"
         SUFFIX ".elf"
     )
 

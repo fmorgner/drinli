@@ -22,12 +22,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 
 #[=====[ Basic Project Configuration ]=====]
 
+include("MCUs")
 include("StackSize")
-include("LinkerScripts")
+include("ConfigureLinkerScript")
 include("ShowConfiguration")
 
 option(DRINLI_PERFORM_IPO "Perform interprocedural optimization" YES)
 
+drinli_configure_linker_script()
 drinli_show_configuration()
 
 #[=====[ Project Components ]=====]

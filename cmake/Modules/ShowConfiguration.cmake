@@ -10,5 +10,5 @@ function(drinli_show_configuration)
     endif()
 
     _message_configuration("Initial stack size is set to ${DRINLI_STACK_SIZE} bytes")
-    _message_configuration("Using script '${DRINLI_LINKER_SCRIPT}' during linking of firmwares")
+    _message_configuration("Targeting '${DRINLI_MCU}' during linking of firmwares")
 endfunction()
