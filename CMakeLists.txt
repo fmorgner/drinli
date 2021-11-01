@@ -43,9 +43,9 @@ add_subdirectory("source/mcu")
 add_subdirectory("source/rom")
 add_subdirectory("source/bootstrap")
 
-#[=====[ Applications ]=====]
+#[=====[ Example Applications ]=====]
 
-add_subdirectory("source/app")
+add_subdirectory("source/examples")
 
 #[=====[ Installation Configuration ]=====]
 
