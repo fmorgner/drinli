@@ -56,6 +56,14 @@ function(drinli_add_firmware NAME)
         WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
     )
 
+    add_custom_command(TARGET "${NAME}"
+        POST_BUILD
+        COMMAND "${CMAKE_SIZE}"
+        ARGS "--format=berkeley" "$<TARGET_FILE:${NAME}>"
+        COMMENT "Dumping section sizes of '${NAME}' ..."
+        WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+    )
+
     add_custom_target("flash_${NAME}"
         COMMAND "openocd" "-f" "${PROJECT_SOURCE_DIR}/openocd.cfg" "-c" "program $<TARGET_FILE:${NAME}> verify reset exit"
         DEPENDS "${NAME}"

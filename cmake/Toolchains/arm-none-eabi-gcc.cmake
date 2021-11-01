@@ -13,6 +13,7 @@ find_program(CMAKE_STRIP "${CROSS_GCC_PREFIX}strip" DOC "Path to ${CROSS_GCC_PRE
 find_program(CMAKE_LINKER "${CROSS_GCC_PREFIX}ld" DOC "Path to ${CROSS_GCC_PREFIX}ld")
 find_program(CMAKE_CXX_COMPILER_AR "${CROSS_GCC_PREFIX}ar" DOC "Path to ${CROSS_GCC_PREFIX}ar")
 find_program(CMAKE_CXX_COMPILER "${CROSS_GCC_PREFIX}g++" DOC "Path to ${CROSS_GCC_PREFIX}g++")
+find_program(CMAKE_SIZE "${CROSS_GCC_PREFIX}size" DOC "Path to ${CROSS_GCC_PREFIX}size")
 
 set(MCU_FLAGS "-mcpu=cortex-m4 -mthumb")
 set(BASE_COMPILER_FLAGS "${MCU_FLAGS} -fdata-sections -ffunction-sections")
