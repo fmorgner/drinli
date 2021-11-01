@@ -38,6 +38,7 @@ function(drinli_add_firmware NAME)
         COMMAND "${CMAKE_OBJCOPY}"
         ARGS "--strip-debug" "$<TARGET_FILE:${NAME}>"
         COMMENT "Extracting debug symbols to '${DEBUG_SYMBOL_NAME} ..."
+        WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
     )
 
     add_custom_command(TARGET "${NAME}"

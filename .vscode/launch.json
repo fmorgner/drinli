@@ -7,8 +7,8 @@
             "name": "OpenOCD Launch",
             "servertype": "openocd",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/build/app.dsym",
-            "runToEntryPoint": "base::reset",
+            "executable": "${workspaceFolder}/build/bin/${input:application}.dsym",
+            "runToEntryPoint": "drinli::bootstrap::detail::start",
             "configFiles": [
                 "${workspaceFolder}/openocd.cfg"
             ],
@@ -20,13 +20,22 @@
             "name": "OpenOCD Attach",
             "servertype": "openocd",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/build/app.dsym",
-            "runToEntryPoint": "base::reset",
+            "executable": "${workspaceFolder}/build/bin/${input:application}.dsym",
+            "runToEntryPoint": "drinli::bootstrap::detail::start",
             "configFiles": [
                 "${workspaceFolder}/openocd.cfg"
             ],
             "cpu": "cortex-m4",
         }
-
+    ],
+    "inputs": [
+        {
+            "id": "application",
+            "type": "pickString",
+            "description": "Select the example application to debug",
+            "options": [
+                "blinky"
+            ]
+        }
     ]
 }
