@@ -4,6 +4,11 @@ cmake_minimum_required(VERSION "3.21.0")
                                     Drinli
 #]============================================================================]
 
+if(NOT CMAKE_TOOLCHAIN_FILE)
+    message(STATUS "Drinli: No toolchain defined. Falling back to default!")
+    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/cmake/Toolchains/arm-none-eabi-gcc.cmake")
+endif()
+
 project("Drinli"
     LANGUAGES CXX
     VERSION "1.0.0"

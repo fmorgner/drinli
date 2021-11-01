@@ -10,9 +10,6 @@
     },
 
     "cmake.buildDirectory": "${workspaceFolder}/build",
-    "cmake.configureArgs": [
-        "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/cmake/Toolchains/arm-none-eabi-gcc.cmake"
-    ],
     "cmake.clearOutputBeforeBuild": true,
 
     "C_Cpp.autoAddFileAssociations": false,
