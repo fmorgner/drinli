@@ -37,13 +37,3 @@ set_target_properties("drinli_bootstrap" PROPERTIES
     INTERPROCEDURAL_OPTIMIZATION ${DRINLI_PERFORM_IPO}
     OUTPUT_NAME "bootstrap"
 )
-
-#[=====[ Installation Configuration ]=====]
-
-install(TARGETS "drinli_bootstrap"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
-)
-
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/drinli"
-)

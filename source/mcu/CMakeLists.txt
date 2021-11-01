@@ -36,13 +36,3 @@ set_target_properties("drinli_mcu" PROPERTIES
     CXX_STANDARD_REQUIRED YES
     OUTPUT_NAME "mcu"
 )
-
-#[=====[ Installation Configuration ]=====]
-
-install(TARGETS "drinli_mcu"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
-)
-
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/drinli"
-)

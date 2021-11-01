@@ -40,13 +40,3 @@ set_target_properties("drinli_rom" PROPERTIES
     CXX_STANDARD_REQUIRED YES
     OUTPUT_NAME "rom"
 )
-
-#[=====[ Installation Configuration ]=====]
-
-install(TARGETS "drinli_rom"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
-)
-
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/drinli"
-)
