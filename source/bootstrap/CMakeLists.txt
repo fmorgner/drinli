@@ -12,18 +12,18 @@ include("GlobComponentSources")
 
 drinli_glob_component_sources(BOOTSTRAP_SOURCES)
 
-add_library("bootstrap" STATIC ${BOOTSTRAP_SOURCES})
+add_library("drinli_bootstrap" STATIC ${BOOTSTRAP_SOURCES})
 
-target_include_directories("bootstrap" PUBLIC
+target_include_directories("drinli_bootstrap" PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/drinli>"
 )
 
-target_compile_features("bootstrap" PUBLIC
+target_compile_features("drinli_bootstrap" PUBLIC
     "cxx_std_20"
 )
 
-target_compile_options("bootstrap" PRIVATE
+target_compile_options("drinli_bootstrap" PRIVATE
     "$<$<CXX_COMPILER_ID:GNU>:-Wall>"
     "$<$<CXX_COMPILER_ID:GNU>:-Wextra>"
     "$<$<CXX_COMPILER_ID:GNU>:-Werror>"
@@ -31,15 +31,16 @@ target_compile_options("bootstrap" PRIVATE
     "$<$<CXX_COMPILER_ID:GNU>:-Wstack-usage=${DRINLI_STACK_SIZE}>"
 )
 
-set_target_properties("bootstrap" PROPERTIES
+set_target_properties("drinli_bootstrap" PROPERTIES
     CXX_EXTENSIONS ON
     CXX_STANDARD_REQUIRED YES
     INTERPROCEDURAL_OPTIMIZATION ${DRINLI_PERFORM_IPO}
+    OUTPUT_NAME "bootstrap"
 )
 
 #[=====[ Installation Configuration ]=====]
 
-install(TARGETS "bootstrap"
+install(TARGETS "drinli_bootstrap"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
 )
 

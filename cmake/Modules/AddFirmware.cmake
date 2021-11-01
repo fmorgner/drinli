@@ -8,10 +8,10 @@ function(drinli_add_firmware NAME)
 
     target_link_libraries("${NAME}" PUBLIC
         "-Wl,--whole-archive"
-        "bootstrap"
+        "drinli_bootstrap"
         "-Wl,--no-whole-archive"
-        "mcu"
-        "rom"
+        "drinli_mcu"
+        "drinli_rom"
     )
 
     target_link_options("${NAME}" PUBLIC

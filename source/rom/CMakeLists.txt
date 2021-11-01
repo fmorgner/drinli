@@ -12,22 +12,22 @@ include("GlobComponentSources")
 
 drinli_glob_component_sources(ROM_SOURCES)
 
-add_library("rom" INTERFACE ${ROM_SOURCES})
+add_library("drinli_rom" INTERFACE ${ROM_SOURCES})
 
-target_include_directories("rom" INTERFACE
+target_include_directories("drinli_rom" INTERFACE
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/drinli>"
 )
 
-target_link_libraries("rom" INTERFACE
-    "mcu"
+target_link_libraries("drinli_rom" INTERFACE
+    "drinli_mcu"
 )
 
-target_compile_features("rom" INTERFACE
+target_compile_features("drinli_rom" INTERFACE
     "cxx_std_20"
 )
 
-target_compile_options("rom" INTERFACE
+target_compile_options("drinli_rom" INTERFACE
     "$<$<CXX_COMPILER_ID:GNU>:-Wall>"
     "$<$<CXX_COMPILER_ID:GNU>:-Wextra>"
     "$<$<CXX_COMPILER_ID:GNU>:-Werror>"
@@ -35,14 +35,15 @@ target_compile_options("rom" INTERFACE
     "$<$<CXX_COMPILER_ID:GNU>:-Wstack-usage=${DRINLI_STACK_SIZE}>"
 )
 
-set_target_properties("rom" PROPERTIES
+set_target_properties("drinli_rom" PROPERTIES
     CXX_EXTENSIONS OFF
     CXX_STANDARD_REQUIRED YES
+    OUTPUT_NAME "rom"
 )
 
 #[=====[ Installation Configuration ]=====]
 
-install(TARGETS "rom"
+install(TARGETS "drinli_rom"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/drinli"
 )
 
