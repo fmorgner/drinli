@@ -39,9 +39,10 @@ drinli_show_configuration()
 
 #[=====[ Project Components ]=====]
 
-add_subdirectory("source/mcu")
-add_subdirectory("source/rom")
 add_subdirectory("source/bootstrap")
+add_subdirectory("source/mcu")
+add_subdirectory("source/platform")
+add_subdirectory("source/rom")
 
 #[=====[ Example Applications ]=====]
 

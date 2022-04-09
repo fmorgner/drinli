@@ -11,6 +11,7 @@ function(drinli_add_firmware NAME)
         "drinli_bootstrap"
         "-Wl,--no-whole-archive"
         "drinli_mcu"
+        "drinli_platform"
         "drinli_rom"
     )
 

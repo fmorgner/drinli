@@ -10,15 +10,11 @@
     },
 
     "cmake.buildDirectory": "${workspaceFolder}/build",
-    "cmake.clearOutputBeforeBuild": true,
 
     "C_Cpp.autoAddFileAssociations": false,
-    "C_Cpp.autocomplete": "Default",
-    "C_Cpp.intelliSenseEngine": "Default",
-    "C_Cpp.errorSquiggles": "EnabledIfIncludesResolve",
-    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.default.compilerPath": "arm-none-eabi-g++",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "C_Cpp.default.intelliSenseMode": "gcc-arm",
-    "C_Cpp.default.compilerPath": "arm-none-eabi-g++",
-    "C_Cpp.default.cppStandard": "c++20"
+
+    "clang-tidy.buildPath": "${workspaceFolder}/build",
 }

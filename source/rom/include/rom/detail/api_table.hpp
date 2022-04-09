@@ -5,50 +5,67 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace drinli::rom::detail
+namespace drinli::rom
 {
 
-  template<std::size_t Table>
-  struct api_table
+  namespace detail
   {
-    using base_address = std::integral_constant<std::uint32_t, 0x0100'0010>;
+    extern "C" std::uint32_t const _rom_version;
 
-    template<std::size_t Function, typename Signature>
-    struct function;
-
-    template<std::size_t Function, typename ReturnType, typename... ArgumentTypes>
-    struct function<Function, ReturnType(ArgumentTypes...)>
+    template<typename ValueType, ValueType const * Variable>
+    struct api_constant
     {
-      using Signature = ReturnType(ArgumentTypes...);
-
-      auto inline static table_pointer() -> Signature **
+      operator ValueType() const noexcept
       {
-        return reinterpret_cast<Signature ***>(base_address::value)[Table];
-      }
-
-      auto inline static function_pointer() -> Signature *
-      {
-        return reinterpret_cast<Signature *>(table_pointer()[Function]);
-      }
-
-      template<typename... Arguments>
-      auto static invoke(Arguments &&... arguments) -> auto
-      {
-        return function_pointer()(static_cast<ArgumentTypes>(arguments)...);
+        return *Variable;
       }
     };
-  };
+
+    using function_table_element = void (*)();
+    using function_table = function_table_element[];
+    using function_table_pointer = function_table const *;
+
+    extern "C" function_table const _rom_gpio_table;
+    extern "C" function_table const _rom_system_control_table;
+
+    template<function_table_pointer Table>
+    struct api_table
+    {
+      template<std::size_t Function, typename Signature>
+      struct function;
+
+      template<std::size_t Function, typename ReturnType, typename... ArgumentTypes>
+      struct function<Function, ReturnType(ArgumentTypes...)>
+      {
+        using Signature = ReturnType(ArgumentTypes...);
+
+        auto inline static table_pointer() -> Signature ** const *
+        {
+          return reinterpret_cast<Signature ** const *>(Table);
+        }
+
+        auto inline static function_pointer() -> Signature *
+        {
+          return reinterpret_cast<Signature *>((*table_pointer())[Function]);
+        }
+
+        template<typename... Arguments>
+        auto static invoke(Arguments &&... arguments) -> auto
+        {
+          return function_pointer()(static_cast<ArgumentTypes>(arguments)...);
+        }
+      };
+    };
+  }  // namespace detail
+
+  using gpio_api_table = detail::api_table<&detail::_rom_gpio_table>;
+  using system_control_api_table = detail::api_table<&detail::_rom_system_control_table>;
 
   /**
-   * @brief Retrieve the version of the ROM in use
-   *
-   * @return std::uint32_t The version of the on-chip ROM
+   * The version of the ROM in use
    */
-  auto inline static version() -> std::uint32_t
-  {
-    return *reinterpret_cast<std::uint32_t *>(api_table<0>::base_address::value);
-  }
+  auto constexpr version = detail::api_constant<std::uint32_t, &detail::_rom_version>{};
 
-}  // namespace drinli::rom::detail
+}  // namespace drinli::rom
 
 #endif

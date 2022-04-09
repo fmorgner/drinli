@@ -37,21 +37,6 @@ namespace drinli::mcu::gpio
   };
 
   /**
-   * @brief A GPIO pin
-   */
-  enum struct pin : std::uint8_t
-  {
-    _0,  ///< Pin 0
-    _1,  ///< Pin 1
-    _2,  ///< Pin 2
-    _3,  ///< Pin 3
-    _4,  ///< Pin 4
-    _5,  ///< Pin 5
-    _6,  ///< Pin 6
-    _7,  ///< Pin 7
-  };
-
-  /**
    * @brief Configured mode of a pin
    *
    * Each pin on a GPIO peripheral can be in one of these modes. In order to be used by an alternative HW module, a pin
