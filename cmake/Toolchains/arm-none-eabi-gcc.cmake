@@ -22,7 +22,7 @@ set(MCU_FLAGS "-mcpu=cortex-m4 -mthumb")
 set(CMAKE_CXX_FLAGS "${MCU_FLAGS} -fdata-sections -ffunction-sections -fno-rtti -fno-exceptions -fno-unwind-tables" CACHE STRING "C++ Compiler Flags")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -ggdb3" CACHE STRING "C++ Compiler Flags (Debug Mode)")
 set(CMAKE_CXX_FLAGS_RELEASE "-Os -DNDEBUG" CACHE STRING "C++ Compiler Flags (Debug Mode)")
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -DNDEBUG ${BASE_COMPILER_FLAGS_DEBUG}" CACHE STRING "C++ Compiler Flags (Debug Mode)")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -DNDEBUG ${CMAKE_CXX_FLAGS_DEBUG}" CACHE STRING "C++ Compiler Flags (Debug Mode)")
 set(CMAKE_EXE_LINKER_FLAGS "${MCU_FLAGS} -specs=nano.specs -Wl,--gc-sections -fuse-linker-plugin " CACHE STRING "Executable Linker Flags")
 
 mark_as_advanced(CMAKE_SIZE)
