@@ -26,17 +26,15 @@
 //   gpio::write(gpio::port::f, all_leds, gpio::level::high);
 // }
 
-[[gnu::noreturn]] auto firmware_main() -> void
+auto firmware_main() -> void
 {
   using namespace drinli;
 
-  rom::system_control::enable(0x2000'0020);
-  rom::system_control::enable_gpio_ahb(0x2000'0020);
+  rom::system_control::enable(rom::system_control::gpio::f);
+  rom::system_control::enable_ahb(rom::system_control::gpio::f);
 
   while (true)
   {
     rom::system_control::sleep();
   }
-
-  __builtin_unreachable();
 }
