@@ -39,6 +39,14 @@ function(drinli_add_firmware NAME)
 
     add_custom_command(TARGET "${NAME}"
         POST_BUILD
+        COMMAND "${CMAKE_OBJDUMP}"
+        ARGS "-Cdwz" "--visualize-jumps" "-j.text" "-j.vector_table" "$<TARGET_FILE:${NAME}>" ">${NAME}.dasm"
+        COMMENT "Dumping disassembly of firmware '${NAME}' ..."
+        WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+    )
+
+    add_custom_command(TARGET "${NAME}"
+        POST_BUILD
         COMMAND "${CMAKE_OBJCOPY}"
         ARGS "--only-keep-debug" "$<TARGET_FILE:${NAME}>" "${DEBUG_SYMBOL_NAME}"
         COMMAND "${CMAKE_OBJCOPY}"
