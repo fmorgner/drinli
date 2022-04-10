@@ -9,9 +9,9 @@ SECTIONS
         KEEP(*(.interrupt_vectors))
     } > FLASH
 
-    .text : ALIGN(4) {
-        . = 0x26d;
+    . = 0x26d;
 
+    .text : ALIGN(4) {
         *(.text .text.* .gnu.linkonce.t.*)
         *(.rodata .rodata.* .gnu.linkonce.r.*)
 
