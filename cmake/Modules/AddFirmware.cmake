@@ -43,6 +43,8 @@ function(drinli_add_firmware NAME)
         ARGS "--only-keep-debug" "$<TARGET_FILE:${NAME}>" "${DEBUG_SYMBOL_NAME}"
         COMMAND "${CMAKE_OBJCOPY}"
         ARGS "--strip-debug" "$<TARGET_FILE:${NAME}>"
+        COMMAND "${CMAKE_OBJCOPY}"
+        ARGS "--add-gnu-debuglink=${DEBUG_SYMBOL_NAME}" "$<TARGET_FILE:${NAME}>"
         COMMENT "Extracting debug symbols to '${DEBUG_SYMBOL_NAME} ..."
         WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
     )
