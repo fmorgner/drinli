@@ -1,5 +1,5 @@
 // #include <rom/gpio.hpp>
-#include <platform/gpio.hpp>
+// #include <platform/gpio.hpp>
 #include <rom/system_control.hpp>
 
 // using gpio = drinli::rom::gpio;
@@ -26,15 +26,17 @@
 //   gpio::write(gpio::port::f, all_leds, gpio::level::high);
 // }
 
-auto firmware_main() -> void
+[[gnu::noreturn]] auto firmware_main() -> void
 {
   using namespace drinli;
 
-  if (rom::version > 3)
+  rom::system_control::enable(0x2000'0020);
+  rom::system_control::enable_gpio_ahb(0x2000'0020);
+
+  while (true)
   {
     rom::system_control::sleep();
   }
 
-  //   enable(platform::gpio::port::f);
-  // configure_pins(platform::gpio::port::f, {})
+  __builtin_unreachable();
 }

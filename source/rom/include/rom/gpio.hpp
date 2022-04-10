@@ -2,7 +2,7 @@
 #define DRINLI_ROM_GPIO_HPP
 
 #include "mcu/gpio.hpp"
-#include "rom/detail/api_table.hpp"
+#include "rom/api.hpp"
 
 #include <cstdint>
 #include <initializer_list>
@@ -22,7 +22,7 @@ namespace drinli::rom::gpio
    */
   auto inline static set_mode(std::uint32_t port, std::uint8_t pins, std::uint32_t mode) -> void
   {
-    return gpio_api_table::function<1, decltype(set_mode)>::invoke(port, pins, mode);
+    return api::tables::gpio::function<1, decltype(set_mode)>::invoke(port, pins, mode);
   }
 
   /**
@@ -36,7 +36,7 @@ namespace drinli::rom::gpio
   auto inline static set_pad_configuration(std::uint32_t port, std::uint8_t pins, std::uint32_t strength, std::uint32_t type)
       -> void
   {
-    return gpio_api_table::function<5, decltype(set_pad_configuration)>::invoke(port, pins, strength, type);
+    return api::tables::gpio::function<5, decltype(set_pad_configuration)>::invoke(port, pins, strength, type);
   }
 
   /**
@@ -47,7 +47,7 @@ namespace drinli::rom::gpio
    */
   auto inline static enable_output(std::uint32_t port, std::uint8_t pins) -> void
   {
-    return gpio_api_table::function<15, decltype(enable_output)>::invoke(port, pins);
+    return api::tables::gpio::function<15, decltype(enable_output)>::invoke(port, pins);
   }
 
   /**
@@ -59,7 +59,7 @@ namespace drinli::rom::gpio
    */
   auto inline static write(std::uint32_t port, std::uint8_t pins, std::uint8_t value) -> void
   {
-    return gpio_api_table::function<0, decltype(write)>::invoke(port, pins, value);
+    return api::tables::gpio::function<0, decltype(write)>::invoke(port, pins, value);
   }
 
 }  // namespace drinli::rom::gpio
