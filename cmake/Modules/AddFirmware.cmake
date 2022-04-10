@@ -4,6 +4,11 @@ function(drinli_add_firmware NAME)
     set(INTEL_HEX_NAME "${NAME}.hex")
     set(BINARY_NAME "${NAME}.bin")
 
+    list(APPEND LINKER_SCRIPTS
+        "${PROJECT_BINARY_DIR}/scripts/drinli.ld"
+        "${PROJECT_SOURCE_DIR}/source/scripts/mcus/${DRINLI_MCU}.ld"
+    )
+
     add_executable("${NAME}" ${ARGN})
 
     target_link_libraries("${NAME}" PUBLIC
@@ -28,7 +33,7 @@ function(drinli_add_firmware NAME)
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS OFF
         INTERPROCEDURAL_OPTIMIZATION ${DRINLI_PERFORM_IPO}
-        LINK_DEPENDS "${PROJECT_BINARY_DIR}/scripts/drinli.ld"
+        LINK_DEPENDS "${LINKER_SCRIPTS}"
         SUFFIX ".elf"
     )
 
