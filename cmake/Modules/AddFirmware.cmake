@@ -53,7 +53,7 @@ function(drinli_add_firmware NAME)
     add_custom_command(TARGET "${NAME}"
         POST_BUILD
         COMMAND "${CMAKE_OBJCOPY}"
-        ARGS "-O" "binary" "-S" "$<TARGET_FILE:${NAME}>" "${INTEL_HEX_NAME}"
+        ARGS "-O" "ihex" "-S" "$<TARGET_FILE:${NAME}>" "${INTEL_HEX_NAME}"
         COMMENT "Creating flashable Intel hex file '${INTEL_HEX_NAME}' ..."
         WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
     )
