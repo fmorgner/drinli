@@ -7,7 +7,7 @@
             "name": "OpenOCD Launch",
             "servertype": "openocd",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/build/bin/${input:application}.dsym",
+            "executable": "${workspaceFolder}/build/bin/${input:application}.elf",
             "runToEntryPoint": "drinli::bootstrap::detail::start",
             "configFiles": [
                 "${workspaceFolder}/openocd.cfg"
@@ -20,7 +20,7 @@
             "name": "OpenOCD Attach",
             "servertype": "openocd",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/build/bin/${input:application}.dsym",
+            "executable": "${workspaceFolder}/build/bin/${input:application}.elf",
             "runToEntryPoint": "drinli::bootstrap::detail::start",
             "configFiles": [
                 "${workspaceFolder}/openocd.cfg"
