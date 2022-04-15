@@ -7,7 +7,7 @@ namespace drinli::bootstrap::detail
   /**
    * MCU startup/reset function
    */
-  auto start() noexcept -> void;
+  [[noreturn]] auto start() noexcept -> void;
 
 }  // namespace drinli::bootstrap::detail
 

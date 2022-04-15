@@ -32,12 +32,13 @@ namespace drinli::bootstrap::detail
     std::ranges::for_each(init_array, [](auto initializer) { initializer(); });
   }
 
-  auto start() noexcept -> void
+  [[noreturn]] auto start() noexcept -> void
   {
     load_data_section();
     zero_bss_section();
     invoke_initializers();
     firmware_main();
+    DRINLI_UNREACHABLE();
   }
 
 }  // namespace drinli::bootstrap::detail

@@ -26,7 +26,7 @@
 //   gpio::write(gpio::port::f, all_leds, gpio::level::high);
 // }
 
-auto firmware_main() -> void
+[[noreturn]] auto firmware_main() -> void
 {
   using namespace drinli;
 
