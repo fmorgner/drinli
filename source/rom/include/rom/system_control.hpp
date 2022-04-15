@@ -2,12 +2,16 @@
 #define DRINLI_ROM_SYSTEM_CONTROL_HPP
 
 #include "rom/api.hpp"
+#include "support/type_list.hpp"
 
 #include <cstdint>
 #include <type_traits>
 
 namespace drinli::rom::system_control
 {
+  enum struct analog : std::uint32_t;
+  enum struct gpio : std::uint32_t;
+  enum struct timer : std::uint32_t;
 
   namespace detail
   {
@@ -25,6 +29,19 @@ namespace drinli::rom::system_control
     auto inline static untyped_enable_ahb(uint32_t peripheral) -> void
     {
       return api::tables::system_control::function<29, decltype(untyped_enable)>::invoke(peripheral);
+    }
+
+    template<typename Candidate>
+    auto constexpr is_peripheral_type() -> bool
+    {
+      using support::type_list, support::type_v;
+      // clang-format off
+      return type_list{
+          type_v<analog>,
+          type_v<gpio>,
+          type_v<timer>,
+      }.contains(type_v<Candidate>);
+      // clang-format on
     }
 
   }  // namespace detail
