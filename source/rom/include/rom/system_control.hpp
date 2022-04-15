@@ -86,15 +86,13 @@ namespace drinli::rom::system_control
     wide_5 = 0xf000'5c05,
   };
 
-  // clang-format off
+  /**
+   * @brief Determine whether a given type is a "peripheral" enumerator.
+   *
+   * @tparam EnumType The type to check
+   */
   template<typename EnumType>
-  concept peripheral = std::is_enum_v<EnumType> &&
-                       std::disjunction_v<
-                         std::is_same<analog, EnumType>,
-                         std::is_same<gpio, EnumType>,
-                         std::is_same<timer, EnumType>
-                       >;
-  // clang-format on
+  concept peripheral = std::is_enum_v<EnumType> && detail::is_peripheral_type<EnumType>();
 
   /**
    * @brief Put the processor in sleep mode.
