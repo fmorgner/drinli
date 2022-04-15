@@ -1,2 +1,4 @@
 joulescope_ui>=0.9.0
 intelhex>=2.3.0
+sphinx>=4.5.0
+breathe>=4.33.0

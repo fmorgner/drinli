@@ -114,7 +114,7 @@ namespace drinli::rom::system_control
    * their reset values. In addition to its original value, the Reset Cause (RESC) register will have the Software Reset (SW)
    * bit set.
    *
-   * @warn This function will never return.
+   * @warning This function will never return.
    */
   [[noreturn]] auto inline static reset() -> void
   {
