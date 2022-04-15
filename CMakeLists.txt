@@ -53,13 +53,3 @@ add_subdirectory("source/support")
 #[=====[ Example Applications ]=====]
 
 add_subdirectory("source/examples")
-
-#[=====[ Installation Configuration ]=====]
-
-install(DIRECTORY "${PROJECT_BINARY_DIR}/scripts"
-    DESTINATION "lib/drinli"
-)
-
-install(DIRECTORY "cmake/Modules/" "cmake/Toolchains/"
-    DESTINATION "lib/cmake"
-)
