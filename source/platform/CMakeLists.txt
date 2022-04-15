@@ -36,6 +36,15 @@ target_link_libraries("drinli_platform" PUBLIC
     "drinli::rom"
 )
 
+target_link_directories("drinli_platform" PUBLIC
+    "${PROJECT_BINARY_DIR}/scripts"
+    "${PROJECT_SOURCE_DIR}/source/scripts/mcus"
+)
+
+target_link_options("drinli_platform" INTERFACE
+    "$<BUILD_INTERFACE:-Tdrinli.ld>"
+)
+
 set_target_properties("drinli_platform" PROPERTIES
     CXX_EXTENSIONS OFF
     CXX_STANDARD_REQUIRED YES

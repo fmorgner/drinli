@@ -15,15 +15,6 @@ function(drinli_add_firmware NAME)
         "drinli::platform"
     )
 
-    target_link_directories("${NAME}" PUBLIC
-        "${PROJECT_BINARY_DIR}/scripts"
-        "${PROJECT_SOURCE_DIR}/source/scripts/mcus"
-    )
-
-    target_link_options("${NAME}" PUBLIC
-        "$<BUILD_INTERFACE:-Tdrinli.ld>"
-    )
-
     set_target_properties("${NAME}" PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS OFF
