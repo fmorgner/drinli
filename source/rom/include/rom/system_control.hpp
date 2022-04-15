@@ -29,6 +29,15 @@ namespace drinli::rom::system_control
 
   }  // namespace detail
 
+  enum struct analog : std::uint32_t
+  {
+    analog_digital_converter_0 = 0x0010'0001,
+    analog_digital_converter_1 = 0x0010'0002,
+    comparator_0 = 0x1010'0100,
+    comparator_1 = 0x1010'0200,
+    comparator_2 = 0x1010'0400,
+  };
+
   enum struct gpio : std::uint32_t
   {
     a = 0x2000'0001,
@@ -40,28 +49,35 @@ namespace drinli::rom::system_control
     g = 0x2000'0040,
     h = 0x2000'0080,
     j = 0x2000'0100,
-    k = 0xf000'0809,
-    l = 0xf000'080a,
-    m = 0xf000'080b,
-    n = 0xf000'080c,
-    p = 0xf000'080d,
-    q = 0xf000'080e,
-    r = 0xf000'080f,
-    s = 0xf000'0810,
   };
 
   enum struct timer : std::uint32_t
   {
-    watchdog_zero = 0x0000'0008,
-    zero = 0x1010'0001,
-    one = 0x1010'0002,
-    two = 0x1010'0004,
-    three = 0x1010'0008,
+    watchdog_0 = 0x0000'0008,
+    watchdog_1 = 0x0010'1000,
+    basic_0 = 0x1010'0001,
+    basic_1 = 0x1010'0002,
+    basic_2 = 0x1010'0004,
+    basic_3 = 0x1010'0008,
+    basic_4 = 0xf000'0404,
+    basic_5 = 0xf000'0405,
+    wide_0 = 0xf000'5c00,
+    wide_1 = 0xf000'5c01,
+    wide_2 = 0xf000'5c02,
+    wide_3 = 0xf000'5c03,
+    wide_4 = 0xf000'5c04,
+    wide_5 = 0xf000'5c05,
   };
 
+  // clang-format off
   template<typename EnumType>
-  concept peripheral =
-      std::is_enum_v<EnumType> && std::disjunction_v<std::is_same<gpio, EnumType>, std::is_same<timer, EnumType>>;
+  concept peripheral = std::is_enum_v<EnumType> &&
+                       std::disjunction_v<
+                         std::is_same<analog, EnumType>,
+                         std::is_same<gpio, EnumType>,
+                         std::is_same<timer, EnumType>
+                       >;
+  // clang-format on
 
   auto inline static sleep() -> void
   {
