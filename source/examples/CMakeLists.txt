@@ -7,7 +7,6 @@ cmake_minimum_required(VERSION "${CMAKE_MINIMUM_REQUIRED_VERSION}")
 
 #[=====[ CMake Dependencies ]=====]
 
-include("GlobComponentSources")
 include("AddFirmware")
 
 #[=====[ LED Blinker Application ]=====]

@@ -23,20 +23,8 @@ target_compile_features("drinli_rom" INTERFACE
     "cxx_std_20"
 )
 
-target_compile_options("drinli_rom" INTERFACE
-    "$<$<CXX_COMPILER_ID:GNU>:-Wall>"
-    "$<$<CXX_COMPILER_ID:GNU>:-Wextra>"
-    "$<$<CXX_COMPILER_ID:GNU>:-Werror>"
-    "$<$<CXX_COMPILER_ID:GNU>:-pedantic-errors>"
-    "$<$<CXX_COMPILER_ID:GNU>:-Wstack-usage=${DRINLI_STACK_SIZE}>"
-)
-
 target_link_libraries("drinli_rom" INTERFACE
-    "drinli_support"
+    "drinli::support"
 )
 
-set_target_properties("drinli_rom" PROPERTIES
-    CXX_EXTENSIONS OFF
-    CXX_STANDARD_REQUIRED YES
-    OUTPUT_NAME "rom"
-)
+add_library("drinli::rom" ALIAS "drinli_rom")

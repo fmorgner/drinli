@@ -1,11 +1,10 @@
 #include "bootstrap/detail/startup.hpp"
 
 #include "bootstrap/detail/symbols.hpp"
+#include "bootstrap/firmware.hpp"
 
 #include <algorithm>
 #include <span>
-
-auto firmware_main() -> void;
 
 namespace drinli::bootstrap::detail
 {

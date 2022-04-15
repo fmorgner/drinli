@@ -1,11 +1,11 @@
-#ifndef DRINLI_BOOTSTRAP_DETAIL_RESET_HPP
-#define DRINLI_BOOTSTRAP_DETAIL_RESET_HPP
+#ifndef DRINLI_BOOTSTRAP_DETAIL_STARTUP_HPP
+#define DRINLI_BOOTSTRAP_DETAIL_STARTUP_HPP
 
 namespace drinli::bootstrap::detail
 {
 
   /**
-   * MCU startup/reset function
+   * @brief Start the firmware.
    */
   [[noreturn]] auto start() noexcept -> void;
 

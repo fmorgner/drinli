@@ -12,12 +12,7 @@ function(drinli_add_firmware NAME)
     add_executable("${NAME}" ${ARGN})
 
     target_link_libraries("${NAME}" PUBLIC
-        "-Wl,--whole-archive"
-        "drinli_bootstrap"
-        "-Wl,--no-whole-archive"
-        "drinli_mcu"
-        "drinli_platform"
-        "drinli_rom"
+        "drinli::platform"
     )
 
     target_link_directories("${NAME}" PUBLIC

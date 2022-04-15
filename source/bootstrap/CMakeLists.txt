@@ -31,9 +31,17 @@ target_compile_options("drinli_bootstrap" PRIVATE
     "$<$<CXX_COMPILER_ID:GNU>:-Wstack-usage=${DRINLI_STACK_SIZE}>"
 )
 
+target_link_options("drinli_bootstrap" INTERFACE
+    "-Wl,--whole-archive"
+    "$<TARGET_FILE:drinli_bootstrap>"
+    "-Wl,--no-whole-archive"
+)
+
 set_target_properties("drinli_bootstrap" PROPERTIES
     CXX_EXTENSIONS ON
     CXX_STANDARD_REQUIRED YES
     INTERPROCEDURAL_OPTIMIZATION ${DRINLI_PERFORM_IPO}
     OUTPUT_NAME "bootstrap"
 )
+
+add_library("drinli::bootstrap" ALIAS "drinli_bootstrap")

@@ -1,5 +1,6 @@
 // #include <rom/gpio.hpp>
 // #include <platform/gpio.hpp>
+#include <platform/firmware.hpp>
 #include <rom/system_control.hpp>
 
 // using gpio = drinli::rom::gpio;

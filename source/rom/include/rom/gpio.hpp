@@ -1,7 +1,6 @@
 #ifndef DRINLI_ROM_GPIO_HPP
 #define DRINLI_ROM_GPIO_HPP
 
-#include "mcu/gpio.hpp"
 #include "rom/api.hpp"
 
 #include <cstdint>

@@ -46,10 +46,9 @@ add_compile_definitions(
 #[=====[ Project Components ]=====]
 
 add_subdirectory("source/bootstrap")
-add_subdirectory("source/mcu")
 add_subdirectory("source/platform")
-add_subdirectory("source/support")
 add_subdirectory("source/rom")
+add_subdirectory("source/support")
 
 #[=====[ Example Applications ]=====]
 

@@ -19,16 +19,11 @@ target_include_directories("drinli_platform" PUBLIC
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/drinli>"
 )
 
-target_link_libraries("drinli_platform" PUBLIC
-    "drinli_mcu"
-    "drinli_rom"
-)
-
 target_compile_features("drinli_platform" PUBLIC
     "cxx_std_20"
 )
 
-target_compile_options("drinli_platform" PUBLIC
+target_compile_options("drinli_platform" PRIVATE
     "$<$<CXX_COMPILER_ID:GNU>:-Wall>"
     "$<$<CXX_COMPILER_ID:GNU>:-Wextra>"
     "$<$<CXX_COMPILER_ID:GNU>:-Werror>"
@@ -36,8 +31,15 @@ target_compile_options("drinli_platform" PUBLIC
     "$<$<CXX_COMPILER_ID:GNU>:-Wstack-usage=${DRINLI_STACK_SIZE}>"
 )
 
+target_link_libraries("drinli_platform" PUBLIC
+    "drinli::bootstrap"
+    "drinli::rom"
+)
+
 set_target_properties("drinli_platform" PROPERTIES
     CXX_EXTENSIONS OFF
     CXX_STANDARD_REQUIRED YES
     OUTPUT_NAME "platform"
 )
+
+add_library("drinli::platform" ALIAS "drinli_platform")

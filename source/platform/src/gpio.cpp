@@ -1,6 +1,6 @@
 #include "platform/gpio.hpp"
 
-#include "mcu/gpio.hpp"
+// #include "mcu/gpio.hpp"
 #include "rom/gpio.hpp"
 #include "rom/system_control.hpp"
 
