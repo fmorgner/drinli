@@ -79,30 +79,60 @@ namespace drinli::rom::system_control
                        >;
   // clang-format on
 
+  /**
+   * @brief Put the processor in sleep mode.
+   *
+   * This function will not return until the processor returns to run mode. If automatic clock gating is enabled, only
+   * designated peripherals continue to operate and can wake up the processor. Otherwise, all peripherals continue to operate.
+   *
+   * @see system_control::enable_in_sleep_mode and system_control::enable_clock_gating.
+   */
   auto inline static sleep() -> void
   {
     return api::tables::system_control::function<0, decltype(sleep)>::invoke();
   }
 
-  auto inline static reset() -> void
+  /**
+   * @brief Reset the device.
+   *
+   * The processor and all of its peripherals are reset. All device registers (except the Reset Cause (RESC) will be restored to
+   * their reset values. In addition to its original value, the Reset Cause (RESC) register will have the Software Reset (SW)
+   * bit set.
+   *
+   * @warn This function will never return.
+   */
   {
     return api::tables::system_control::function<19, decltype(reset)>::invoke();
   }
 
-  template<peripheral PeripheralType>
-  auto inline static enable(PeripheralType gpio) -> void
+  /**
+   * @brief Enable a processor peripheral.
+   *
+   * @param[in] peripheral The peripheral that shall be enabled.
+   */
+  auto inline static enable(peripheral auto peripheral) -> void
   {
-    return detail::untyped_enable(static_cast<std::underlying_type_t<decltype(gpio)>>(gpio));
+    return detail::untyped_enable(static_cast<std::underlying_type_t<decltype(peripheral)>>(peripheral));
   }
 
-  auto inline static disable_ahb(gpio gpio) -> void
+  /**
+   * @brief Disable General Purpose Input/Output (GPIO) access via the Advanced High-Performance Bus (AHB).
+   *
+   * @param[in] peripheral The GPIO peripheral to disable AHB access for
+   */
+  auto inline static disable_ahb(gpio peripheral) -> void
   {
-    return detail::untyped_disable_ahb(static_cast<std::underlying_type_t<decltype(gpio)>>(gpio));
+    return detail::untyped_disable_ahb(static_cast<std::underlying_type_t<decltype(peripheral)>>(peripheral));
   }
 
-  auto inline static enable_ahb(gpio gpio) -> void
+  /**
+   * @brief Enable General Purpose Input/Output (GPIO) access via the Advanced High-Performance Bus (AHB).
+   *
+   * @param[in] peripheral The GPIO peripheral to enable AHB access for
+   */
+  auto inline static enable_ahb(gpio peripheral) -> void
   {
-    return detail::untyped_enable_ahb(static_cast<std::underlying_type_t<decltype(gpio)>>(gpio));
+    return detail::untyped_enable_ahb(static_cast<std::underlying_type_t<decltype(peripheral)>>(peripheral));
   }
 
 }  // namespace drinli::rom::system_control
