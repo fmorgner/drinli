@@ -37,6 +37,12 @@ option(DRINLI_PERFORM_IPO "Perform interprocedural optimization" YES)
 drinli_configure_linker_script()
 drinli_show_configuration()
 
+#[=====[ Global Helper Definitions ]=====]
+
+add_compile_definitions(
+    "$<$<CXX_COMPILER_ID:GNU,Clang>:DRINLI_UNREACHABLE=__builtin_unreachable>"
+)
+
 #[=====[ Project Components ]=====]
 
 add_subdirectory("source/bootstrap")

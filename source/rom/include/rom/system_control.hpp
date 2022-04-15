@@ -101,8 +101,10 @@ namespace drinli::rom::system_control
    *
    * @warn This function will never return.
    */
+  [[noreturn]] auto inline static reset() -> void
   {
-    return api::tables::system_control::function<19, decltype(reset)>::invoke();
+    api::tables::system_control::function<19, decltype(reset)>::invoke();
+    DRINLI_UNREACHABLE();
   }
 
   /**
