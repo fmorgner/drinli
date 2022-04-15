@@ -23,12 +23,12 @@ namespace drinli::rom::system_control
 
     auto inline static untyped_disable_ahb(uint32_t peripheral) -> void
     {
-      return api::tables::system_control::function<30, decltype(untyped_enable)>::invoke(peripheral);
+      return api::tables::system_control::function<30, decltype(untyped_disable_ahb)>::invoke(peripheral);
     }
 
     auto inline static untyped_enable_ahb(uint32_t peripheral) -> void
     {
-      return api::tables::system_control::function<29, decltype(untyped_enable)>::invoke(peripheral);
+      return api::tables::system_control::function<29, decltype(untyped_enable_ahb)>::invoke(peripheral);
     }
 
     template<typename Candidate>
@@ -46,6 +46,9 @@ namespace drinli::rom::system_control
 
   }  // namespace detail
 
+  /**
+   * @brief Analog peripherals.
+   */
   enum struct analog : std::uint32_t
   {
     analog_digital_converter_0 = 0x0010'0001,
@@ -55,6 +58,9 @@ namespace drinli::rom::system_control
     comparator_2 = 0x1010'0400,
   };
 
+  /**
+   * @brief General Purpose Input/Output (GPIO) port peripherals.
+   */
   enum struct gpio : std::uint32_t
   {
     a = 0x2000'0001,
@@ -68,6 +74,9 @@ namespace drinli::rom::system_control
     j = 0x2000'0100,
   };
 
+  /**
+   * @brief Timer peripherals.
+   */
   enum struct timer : std::uint32_t
   {
     watchdog_0 = 0x0000'0008,
@@ -100,7 +109,7 @@ namespace drinli::rom::system_control
    * This function will not return until the processor returns to run mode. If automatic clock gating is enabled, only
    * designated peripherals continue to operate and can wake up the processor. Otherwise, all peripherals continue to operate.
    *
-   * @see system_control::enable_in_sleep_mode and system_control::enable_clock_gating.
+   * @see enable_in_sleep_mode and enable_peripheral_clock_gating.
    */
   auto inline static sleep() -> void
   {
@@ -125,6 +134,12 @@ namespace drinli::rom::system_control
   /**
    * @brief Enable a processor peripheral.
    *
+   * After a reset of the processor (including initial startup), all periph=erals are disabled. This function allows for any
+   * given peripheral to be enabled. After being enabled, read and write operations can be perfomed on the given peripheral.
+   *
+   * @warning Enabling a peripheral takes 5 clock cycles. Any access to the peripheral during that time will raise a Bus Fault
+   * exception. Care must be taken to ensure no such access occurs during this period.
+   *
    * @param[in] peripheral The peripheral that shall be enabled.
    */
   auto inline static enable(peripheral auto peripheral) -> void
@@ -134,6 +149,9 @@ namespace drinli::rom::system_control
 
   /**
    * @brief Disable General Purpose Input/Output (GPIO) access via the Advanced High-Performance Bus (AHB).
+   *
+   * General Purpose Input/Output (GPIO) peripherals can be accessed via either the Advanced Periphal Bus (APB) or the Advanced
+   * High-Performance Bus (AHB). This function disables access to the given GPIO peripheral via the AHB.
    *
    * @param[in] peripheral The GPIO peripheral to disable AHB access for
    */
@@ -145,11 +163,27 @@ namespace drinli::rom::system_control
   /**
    * @brief Enable General Purpose Input/Output (GPIO) access via the Advanced High-Performance Bus (AHB).
    *
+   * General Purpose Input/Output (GPIO) peripherals can be accessed via either the Advanced Periphal Bus (APB) or the Advanced
+   * High-Performance Bus (AHB). This function enables access to the given GPIO peripheral via the AHB.
+   *
    * @param[in] peripheral The GPIO peripheral to enable AHB access for
    */
   auto inline static enable_ahb(gpio peripheral) -> void
   {
     return detail::untyped_enable_ahb(static_cast<std::underlying_type_t<decltype(peripheral)>>(peripheral));
+  }
+
+  /**
+   * @brief Enable or disable sleep mode clock gating for peripherals.
+   *
+   * By default, sleep mode clock gating is disabled for all peripherals. Thus all peripherals remain clocked when the processor
+   * enters its sleep mode. This function allows for clock gating to be enabled or disabled.
+   *
+   * @param[in] yes_or_no Whether or not to enable clock gating for peripherals in sleep mode.
+   */
+  auto inline static enable_peripheral_clock_gating(bool yes_or_no) -> void
+  {
+    return api::tables::system_control::function<12, decltype(enable_peripheral_clock_gating)>::invoke(yes_or_no);
   }
 
 }  // namespace drinli::rom::system_control

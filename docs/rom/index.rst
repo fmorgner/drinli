@@ -5,4 +5,5 @@ Embedded ROM Library
     :maxdepth: 2
     :caption: Contents:
 
+    api
     system_control
